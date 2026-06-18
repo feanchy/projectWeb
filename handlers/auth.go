@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type Handler struct {
@@ -33,10 +35,15 @@ func (h *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 
 		login := r.FormValue("login")
 		password := r.FormValue("password")
+		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
+		if err != nil {
+			http.Error(w, "hash error", 500)
+			return
+		}
 
-		_, err := h.DB.Exec(
+		_, err = h.DB.Exec(
 			"INSERT INTO users (login, password) VALUES (?, ?)",
-			login, password,
+			login, string(hashedPassword),
 		)
 
 		if err != nil {
@@ -64,14 +71,22 @@ func (h *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 		err := h.DB.QueryRow("SELECT password FROM users WHERE login = ?", login).Scan(&dbPassword)
 
-		if err != nil {
-			fmt.Println("user not found or db error:", err)
-			http.Error(w, "Invalid login", 401)
+		if err == sql.ErrNoRows {
+			http.Error(w, "User not found", 401)
 			return
 		}
 
-		if password != dbPassword {
-			fmt.Println("wrong password")
+		if err != nil {
+			http.Error(w, "DB error", 500)
+			return
+		}
+
+		err = bcrypt.CompareHashAndPassword(
+			[]byte(dbPassword),
+			[]byte(password),
+		)
+
+		if err != nil {
 			http.Error(w, "wrong password", 401)
 			return
 		}
