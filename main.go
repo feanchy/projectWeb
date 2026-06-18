@@ -5,83 +5,33 @@ import (
 	"fmt"
 	"html/template"
 	"net/http"
+	"projectWeb/handlers"
 
 	_ "modernc.org/sqlite"
 )
 
-var templates = template.Must(template.ParseGlob("templates/*.html"))
 var db *sql.DB
 
-func homeHandler(w http.ResponseWriter, r *http.Request) {
-	templates.ExecuteTemplate(w, "index.html", nil)
-}
-
-func registerHandler(w http.ResponseWriter, r *http.Request) {
-
-	if r.Method == http.MethodPost {
-		r.ParseForm()
-
-		login := r.FormValue("login")
-		password := r.FormValue("password")
-
-		_, err := db.Exec("INSERT INTO users (login, password) VALUES (?, ?)", login, password)
-
-		if err != nil {
-			fmt.Println("DB error", err)
-			http.Error(w, "DB error", 500)
-			return
-		}
-
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-		return
-	}
-
-	templates.ExecuteTemplate(w, "register.html", nil)
-}
-
-func loginHandler(w http.ResponseWriter, r *http.Request) {
-
-	if r.Method == http.MethodPost {
-		r.ParseForm()
-
-		login := r.FormValue("login")
-		password := r.FormValue("password")
-
-		fmt.Println("LOGIN:", login, password)
-
-		http.Redirect(w, r, "/", http.StatusSeeOther)
-		return
-	}
-
-	templates.ExecuteTemplate(w, "login.html", nil)
-
-}
-
 func main() {
+
 	var err error
 	db, err = sql.Open("sqlite", "./database/app.db")
 	if err != nil {
 		panic(err)
 	}
 
-	sqlStmt := `
-CREATE TABLE IF NOT EXISTS users (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	login TEXT,
-	password TEXT
-);
-`
+	templates := template.Must(template.ParseGlob("templates/*.html"))
 
-	_, err = db.Exec(sqlStmt)
-	if err != nil {
-		panic(err)
+	h := &handlers.Handler{
+		DB:  db,
+		Tpl: templates,
 	}
 
 	mux := http.NewServeMux()
 
-	mux.HandleFunc("/", homeHandler)
-	mux.HandleFunc("/login", loginHandler)
-	mux.HandleFunc("/register", registerHandler)
+	mux.HandleFunc("/", h.HomeHandler)
+	mux.HandleFunc("/login", h.LoginHandler)
+	mux.HandleFunc("/register", h.RegisterHandler)
 
 	fmt.Println("Server started on http://localhost:8080")
 	http.ListenAndServe(":8080", mux)
