@@ -1,12 +1,16 @@
 package main
 
 import (
+	"database/sql"
 	"fmt"
 	"html/template"
 	"net/http"
+
+	_ "modernc.org/sqlite"
 )
 
 var templates = template.Must(template.ParseGlob("templates/*.html"))
+var db *sql.DB
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	templates.ExecuteTemplate(w, "index.html", nil)
@@ -48,6 +52,25 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	var err error
+	db, err = sql.Open("sqlite", "./database/app.db")
+	if err != nil {
+		panic(err)
+	}
+
+	sqlStmt := `
+CREATE TABLE IF NOT EXISTS users (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	login TEXT,
+	password TEXT
+);
+`
+
+	_, err = db.Exec(sqlStmt)
+	if err != nil {
+		panic(err)
+	}
+
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/", homeHandler)
