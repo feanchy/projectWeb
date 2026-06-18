@@ -20,6 +20,16 @@ func main() {
 		panic(err)
 	}
 
+	sqlStmt := `CREATE TABLE IF NOT EXISTS users (
+	id INTEGER PRIMARY KEY AUTOINCREMENT,
+	login TEXT UNIQUE,
+	password TEXT);`
+
+	_, err = db.Exec(sqlStmt)
+	if err != nil {
+		panic(err)
+	}
+
 	templates := template.Must(template.ParseGlob("templates/*.html"))
 
 	h := &handlers.Handler{

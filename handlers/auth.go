@@ -40,8 +40,8 @@ func (h *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
 		)
 
 		if err != nil {
-			fmt.Println("DB error", err)
-			http.Error(w, "DB error", 500)
+			fmt.Println("user already exists or db error:", err)
+			http.Error(w, "User already exists", 400)
 			return
 		}
 
