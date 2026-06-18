@@ -52,7 +52,23 @@ func (h *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 		login := r.FormValue("login")
 		password := r.FormValue("password")
 
-		fmt.Println("LOGIN:", login, password)
+		var dbPassword string
+
+		err := h.DB.QueryRow("SELECT password FROM users WHERE login = ?", login).Scan(&dbPassword)
+
+		if err != nil {
+			fmt.Println("user not found or db error:", err)
+			http.Error(w, "Invalid login", 401)
+			return
+		}
+
+		if password != dbPassword {
+			fmt.Println("wrong password")
+			http.Error(w, "wrong password", 401)
+			return
+		}
+
+		fmt.Println("LOGIN SUCCESS:", login)
 
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
