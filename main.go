@@ -2,19 +2,22 @@ package main
 
 import (
 	"fmt"
+	"html/template"
 	"net/http"
 )
 
+var templates = template.Must(template.ParseGlob("templates/*.html"))
+
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Home page")
+	templates.ExecuteTemplate(w, "index.html", nil)
 }
 
 func registerHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Register page")
+	templates.ExecuteTemplate(w, "login.html", nil)
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Login page")
+	templates.ExecuteTemplate(w, "register.html", nil)
 }
 
 func main() {
