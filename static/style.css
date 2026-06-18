@@ -1,21 +1,35 @@
-a {
-    display: inline-block;
-    padding: 10px 15px;
-    margin: 5px;
-    text-decoration: none;
-    background: #4CAF50;
-    color: white;
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    margin: 0;
+}
+
+/* центр всей страницы */
+.container {
+    width: 320px;
+    margin: 100px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+/* инпуты */
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ddd;
     border-radius: 6px;
+    box-sizing: border-box;
 }
 
-a:hover {
-    background: #45a049;
-}
-
+/* кнопка */
 button {
-    padding: 10px 15px;
-    margin-top: 10px;
-    background: #2196F3;
+    width: 100%;
+    padding: 10px;
+    background: #2d6cdf;
     color: white;
     border: none;
     border-radius: 6px;
@@ -23,13 +37,21 @@ button {
 }
 
 button:hover {
-    background: #1976D2;
+    background: #1f56c2;
 }
 
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+/* ссылки */
+.nav {
+    margin-top: 15px;
+}
+
+.nav a {
+    display: inline-block;
+    margin: 5px;
+    color: #2d6cdf;
+    text-decoration: none;
+}
+
+.nav a:hover {
+    text-decoration: underline;
 }
