@@ -24,7 +24,13 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 		login := r.FormValue("login")
 		password := r.FormValue("password")
 
-		fmt.Println("REGISTER:", login, password)
+		_, err := db.Exec("INSERT INTO users (login, password) VALUES (?, ?)", login, password)
+
+		if err != nil {
+			fmt.Println("DB error", err)
+			http.Error(w, "DB error", 500)
+			return
+		}
 
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 		return
