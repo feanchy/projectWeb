@@ -13,11 +13,38 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func registerHandler(w http.ResponseWriter, r *http.Request) {
-	templates.ExecuteTemplate(w, "login.html", nil)
+
+	if r.Method == http.MethodPost {
+		r.ParseForm()
+
+		login := r.FormValue("login")
+		password := r.FormValue("password")
+
+		fmt.Println("REGISTER:", login, password)
+
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	templates.ExecuteTemplate(w, "register.html", nil)
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
-	templates.ExecuteTemplate(w, "register.html", nil)
+
+	if r.Method == http.MethodPost {
+		r.ParseForm()
+
+		login := r.FormValue("login")
+		password := r.FormValue("password")
+
+		fmt.Println("LOGIN:", login, password)
+
+		http.Redirect(w, r, "/", http.StatusSeeOther)
+		return
+	}
+
+	templates.ExecuteTemplate(w, "login.html", nil)
+
 }
 
 func main() {
