@@ -1,0 +1,35 @@
+a {
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 5px;
+    text-decoration: none;
+    background: #4CAF50;
+    color: white;
+    border-radius: 6px;
+}
+
+a:hover {
+    background: #45a049;
+}
+
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1976D2;
+}
+
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}

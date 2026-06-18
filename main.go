@@ -28,10 +28,13 @@ func main() {
 	}
 
 	mux := http.NewServeMux()
+	fs := http.FileServer(http.Dir("./static"))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	mux.HandleFunc("/", h.HomeHandler)
 	mux.HandleFunc("/login", h.LoginHandler)
 	mux.HandleFunc("/register", h.RegisterHandler)
+	mux.HandleFunc("/logout", h.LogoutHandler)
 
 	fmt.Println("Server started on http://localhost:8080")
 	http.ListenAndServe(":8080", mux)

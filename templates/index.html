@@ -2,11 +2,23 @@
 <html>
 <head>
     <title>Home</title>
+    <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
-    <h1>Home page</h1>
 
-    <a href="/login">Login</a><br>
+<div class="container">
+
+<h1>Home page</h1>
+
+{{if .}}
+    <p>Welcome, {{.}}</p>
+    <a href="/logout">Logout</a>
+{{else}}
+    <a href="/login">Login</a>
     <a href="/register">Register</a>
+{{end}}
+
+</div>
+
 </body>
 </html>

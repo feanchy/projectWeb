@@ -15,7 +15,15 @@ type Handler struct {
 var Templates *template.Template
 
 func (h *Handler) HomeHandler(w http.ResponseWriter, r *http.Request) {
-	h.Tpl.ExecuteTemplate(w, "index.html", nil)
+
+	cookie, err := r.Cookie("user")
+
+	if err != nil {
+		h.Tpl.ExecuteTemplate(w, "index.html", nil)
+		return
+	}
+
+	h.Tpl.ExecuteTemplate(w, "index.html", cookie.Value)
 }
 
 func (h *Handler) RegisterHandler(w http.ResponseWriter, r *http.Request) {
@@ -68,6 +76,12 @@ func (h *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		http.SetCookie(w, &http.Cookie{
+			Name:  "user",
+			Value: login,
+			Path:  "/",
+		})
+
 		fmt.Println("LOGIN SUCCESS:", login)
 
 		http.Redirect(w, r, "/", http.StatusSeeOther)
@@ -75,4 +89,15 @@ func (h *Handler) LoginHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	h.Tpl.ExecuteTemplate(w, "login.html", nil)
+}
+
+func (h *Handler) LogoutHandler(w http.ResponseWriter, r *http.Request) {
+	http.SetCookie(w, &http.Cookie{
+		Name:   "user",
+		Value:  "",
+		Path:   "/",
+		MaxAge: -1,
+	})
+
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
