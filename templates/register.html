@@ -1,24 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Register</title>
-    <link rel="stylesheet" href="/static/style.css">
+<!DOCTYPE html> <!-- объявление HTML5 -->
+<html> <!-- корень документа -->
+<head> <!-- служебная секция -->
+    <title>Register</title> <!-- заголовок вкладки: «Регистрация» -->
+    <link rel="stylesheet" href="/static/style.css"> <!-- подключение CSS -->
 </head>
-<body>
+<body> <!-- видимая часть страницы -->
 
-<div class="container">
+<div class="container"> <!-- центрированный контейнер -->
 
-    <h2>Register</h2>
+    <h2>Register</h2> <!-- заголовок «Регистрация» -->
 
-    <form method="POST" action="/register">
-        <input name="login" placeholder="Login" required>
-        <input name="password" type="password" placeholder="Password" required>
-        <button type="submit">Register</button>
+    <form method="POST" action="/register"> <!-- форма отправляется POST-ом на /register -->
+        <input name="login" placeholder="Login" required> <!-- поле логина -->
+        <input name="password" type="password" placeholder="Password" required> <!-- поле пароля -->
+        <button type="submit">Register</button> <!-- кнопка «Зарегистрироваться» -->
     </form>
 
-    <div class="nav">
-        <a href="/">Home</a>
-        <a href="/login">Login</a>
+    <div class="nav"> <!-- блок ссылок -->
+        <a href="/">Home</a> <!-- на главную -->
+        <a href="/login">Login</a> <!-- на вход -->
     </div>
 
 </div>

@@ -1,57 +1,57 @@
-body {
-    font-family: Arial, sans-serif;
-    background: #f2f2f2;
-    margin: 0;
+body { /* body — селектор: стили для всего тела страницы */
+    font-family: Arial, sans-serif; /* font-family — шрифт; Arial — основной; sans-serif — запасной без засечек */
+    background: #f2f2f2; /* background — цвет фона страницы; #f2f2f2 — светло-серый */
+    margin: 0; /* margin — внешний отступ; 0 — убрать стандартные отступы браузера */
 }
 
 /* центр всей страницы */
-.container {
-    width: 320px;
-    margin: 100px auto;
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    text-align: center;
+.container { /* .container — класс контейнера формы */
+    width: 320px; /* width — ширина блока в пикселях */
+    margin: 100px auto; /* margin: 100px сверху/снизу; auto — центрирование по горизонтали */
+    background: white; /* background — белый фон карточки */
+    padding: 25px; /* padding — внутренний отступ от края блока */
+    border-radius: 12px; /* border-radius — скругление углов */
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1); /* box-shadow — тень; rgba — цвет с прозрачностью */
+    text-align: center; /* text-align — выравнивание текста по центру */
 }
 
 /* инпуты */
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 8px 0;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    box-sizing: border-box;
+input { /* input — стили для всех полей ввода */
+    width: 100%; /* width: 100% — на всю ширину контейнera */
+    padding: 10px; /* padding — внутренний отступ внутри поля */
+    margin: 8px 0; /* margin: 8px сверху и снизу между полями */
+    border: 1px solid #ddd; /* border — рамка 1px сплошная светло-серая */
+    border-radius: 6px; /* скругление углов поля */
+    box-sizing: border-box; /* box-sizing — padding и border входят в width (не «раздувают» блок) */
 }
 
 /* кнопка */
-button {
-    width: 100%;
-    padding: 10px;
-    background: #2d6cdf;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+button { /* button — стили кнопки отправки формы */
+    width: 100%; /* кнопка на всю ширину */
+    padding: 10px; /* внутренний отступ */
+    background: #2d6cdf; /* background — синий цвет фона кнопки */
+    color: white; /* color — белый цвет текста */
+    border: none; /* border: none — без рамки */
+    border-radius: 6px; /* скругление углов */
+    cursor: pointer; /* cursor: pointer — курсор «рука» при наведении */
 }
 
-button:hover {
-    background: #1f56c2;
+button:hover { /* button:hover — стили при наведении мыши на кнопку */
+    background: #1f56c2; /* более тёмный синий при hover */
 }
 
 /* ссылки */
-.nav {
-    margin-top: 15px;
+.nav { /* .nav — блок навигационных ссылок */
+    margin-top: 15px; /* margin-top — отступ сверху от формы */
 }
 
-.nav a {
-    display: inline-block;
-    margin: 5px;
-    color: #2d6cdf;
-    text-decoration: none;
+.nav a { /* .nav a — ссылки внутри блока nav */
+    display: inline-block; /* display: inline-block — ссылка как строчно-блочный элемент */
+    margin: 5px; /* margin — отступ между ссылками */
+    color: #2d6cdf; /* color — синий цвет текста ссылки */
+    text-decoration: none; /* text-decoration: none — убрать подчёркивание */
 }
 
-.nav a:hover {
-    text-decoration: underline;
+.nav a:hover { /* при наведении на ссылку */
+    text-decoration: underline; /* text-decoration: underline — показать подчёркивание */
 }

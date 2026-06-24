@@ -1,29 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-    <link rel="stylesheet" href="/static/style.css">
-</head>
-<body>
+<!DOCTYPE html> <!-- DOCTYPE — объявление типа документа HTML5 -->
+<html> <!-- html — корневой элемент всей веб-страницы -->
+<head> <!-- head — служебная часть страницы (заголовок, стили, мета) -->
+    <title>Home</title> <!-- title — текст на вкладке браузера; Home — «Главная» -->
+    <link rel="stylesheet" href="/static/style.css"> <!-- link — подключить CSS; rel=stylesheet — это таблица стилей; href — путь к файлу -->
+</head> <!-- закрытие head -->
+<body> <!-- body — видимое содержимое страницы -->
 
-<div class="container">
+<div class="container"> <!-- div — блочный контейнер; class=container — CSS-класс для центрирования блока -->
 
-    <h2>Home</h2>
+    <h2>Home</h2> <!-- h2 — заголовок второго уровня; Home — «Главная» -->
 
-    {{if .}}
-        <p>Welcome, {{.}}</p>
-        <a href="/logout">Logout</a>
-    {{else}}
-        <p>You are not logged in</p>
-    {{end}}
+    {{if .}} <!-- {{if .}} — шаблон Go: если переданы данные (логин), пользователь залогинен -->
+        <p>Welcome, {{.}}</p> <!-- p — абзац; {{.}} — подставить переданное значение (логин) -->
+        <a href="/logout">Logout</a> <!-- a — ссылка; href — куда ведёт; Logout — «Выйти» -->
+    {{else}} <!-- {{else}} — иначе (данных нет, пользователь гость) -->
+        <p>You are not logged in</p> <!-- сообщение для неавторизованного пользователя -->
+    {{end}} <!-- {{end}} — конец блока if -->
 
-    <div class="nav">
-        <a href="/">Home</a>
-        <a href="/login">Login</a>
-        <a href="/register">Register</a>
-    </div>
+    <div class="nav"> <!-- nav — блок навигационных ссылок -->
+        <a href="/">Home</a> <!-- ссылка на главную страницу "/" -->
+        <a href="/login">Login</a> <!-- ссылка на страницу входа -->
+        <a href="/register">Register</a> <!-- ссылка на страницу регистрации -->
+    </div> <!-- закрытие nav -->
 
-</div>
+</div> <!-- закрытие container -->
 
-</body>
-</html>
+</body> <!-- закрытие body -->
+</html> <!-- закрытие html -->
